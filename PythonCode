@@ -1,0 +1,70 @@
+from pip._vendor.distlib.compat import raw_input
+from symbol import except_clause
+from builtins import str
+
+class CustomError(Exception):
+    pass
+
+def auth(password):
+    y = len(password);
+    i = 0
+    while(i<y):
+        try:
+            if password[i] not in ("R","G","B","Y","O","V","P","S"):
+                raise ValueError
+            
+            elif type(password[i]) == int:
+                raise CustomError
+            
+            else:
+                i=i+1;
+                if(i == y):
+                    return 1
+        
+        except ValueError:
+            print("Invalid Input. Check the Characters.")
+            return 0
+        except CustomError:       
+            print("Invalid Input. Numerics are not allowed.")
+            return 0   
+
+print("SIGN UP SESSION")
+print()
+
+username = input("Enter Username: ")
+
+print()
+print("Select following Color Combination Codes to build your Password:")
+print("Color    -   Color Code")
+colortuple = ("Red      -    R",
+             "Green    -    G",
+             "Blue     -    B",
+             "Yellow   -    Y",
+             "Orange   -    O",
+             "Violet   -    V",
+             "Pink     -    P",
+             "Silver   -    S")
+for x in colortuple:
+    print(x)
+print()
+
+flag=0
+while(flag == 0):
+    password = str(raw_input("Enter PassCode: "))
+    flag = auth(password)
+    if(flag==1):
+        print("Successfully Signed Up!") 
+            
+print()
+print("LOGIN AUTHENTICATION")
+print()
+
+print("Username: "+ username)
+
+pswd = str(raw_input("Password: "))
+
+while(pswd != password):
+    print("Sorry Wrong Password. Please Try Again!")
+    pswd = str(raw_input("Password: "))
+else:
+    print("Successfully Loged In. Hello "+username+".")
